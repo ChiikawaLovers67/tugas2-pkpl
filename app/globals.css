@@ -13,10 +13,9 @@
 
 body {
   background: linear-gradient(135deg, var(--bg-color), var(--bg-color-sec));
-  font-family: var(--font-family); 
 }
 
 * {
-  font-family: var(--font-family, sans-serif);
+  font-family: var(--font-family);
   font-size: var(--font-size, 16px);
 }
