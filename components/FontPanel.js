@@ -3,13 +3,13 @@ import { useSession } from "next-auth/react"
 import { isMember } from "@/lib/auth"
 import { useState } from "react"
 
-const fonts = ["Sans-serif", "Serif", "Monospace", "Cursive"]
+const fonts = ["Inter", "Sans-serif", "Serif", "Monospace", "Cursive"]
 
 export default function FontPanel() {
   const { data: session } = useSession()
   const [open, setOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [fontFamily, setFontFamily] = useState("sans-serif")
+  const [fontFamily, setFontFamily] = useState("inter")
   const [fontSize, setFontSize] = useState("16")
 
   if (!isMember(session)) return null
