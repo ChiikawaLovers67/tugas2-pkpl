@@ -1,9 +1,16 @@
 import "./globals.css"
+import Navbar from "@/components/Navbar"
+import SessionWrapper from "@/components/SessionWrapper"
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id">
-      <body>{children}</body>
+    <html>
+      <body>
+        <SessionWrapper>
+          <Navbar />
+          {children}
+        </SessionWrapper>
+      </body>
     </html>
   )
 }

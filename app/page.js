@@ -1,8 +1,10 @@
+"use client"
 import MemberCard from "@/components/MemberCard"
 import styles from "./page.module.css"
 import members from "@/data/members"
 
 export default function Home() {
+
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>ChiikawaLovers67</h1>
