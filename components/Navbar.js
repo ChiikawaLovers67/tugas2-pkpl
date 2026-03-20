@@ -2,6 +2,7 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import Image from "next/image"
 import styles from "./Navbar.module.css"
+import FontPanel from "./FontPanel"
 
 export default function Navbar() {
   const { data: session } = useSession()
@@ -10,6 +11,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <span className={styles.logo}>ChiikawaLovers67</span>
       <div className={styles.right}>
+        <FontPanel />
         {session ? (
           <>
             <Image
