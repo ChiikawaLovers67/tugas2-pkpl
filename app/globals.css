@@ -11,6 +11,16 @@
   --card-border: rgba(160, 170, 200, 0.2);
   --font-family: 'Inter', Arial, sans-serif;}
 
+[data-theme="light"] {
+  --bg-color: #f5f6fa;
+  --bg-color-sec: #e8eaf6;
+  --text-color: #1a1d24;
+  --text-color-sec: rgba(60, 65, 90, 0.6);
+  --accent-color: #7b8cde;
+  --card-bg: #ffffff;
+  --card-border: rgba(100, 110, 160, 0.2);
+}
+
 body {
   background: linear-gradient(135deg, var(--bg-color), var(--bg-color-sec));
 }

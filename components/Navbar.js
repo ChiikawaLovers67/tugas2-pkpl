@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import Image from "next/image"
 import styles from "./Navbar.module.css"
 import FontPanel from "./FontPanel"
+import ThemeToggle from "./ThemeToggle"
 
 export default function Navbar() {
   const { data: session } = useSession()
@@ -14,6 +15,8 @@ export default function Navbar() {
         <FontPanel />
         {session ? (
           <>
+            <span className={styles.name}>{"Dark Mode"}</span>
+            <ThemeToggle />
             <Image
               src={session.user.image}
               width={32}
