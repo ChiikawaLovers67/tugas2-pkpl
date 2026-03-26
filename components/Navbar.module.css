@@ -27,6 +27,15 @@
   color: var(--text-color);
 }
 
+.notice {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent-color);
+  border: 0.5px dashed var(--accent-color);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
 .avatar {
   border-radius: 50%;
   border: 1.5px solid var(--card-border);
