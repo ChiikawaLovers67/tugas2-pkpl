@@ -1,13 +1,32 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import {
+  applyTheme,
+  preferenceKeys,
+  readPreference,
+  writePreference,
+} from "@/lib/preferences"
 
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(true)
 
+  useEffect(() => {
+    const savedTheme = readPreference(preferenceKeys.theme)
+    const themeToApply = savedTheme === "light" ? "light" : "dark"
+    applyTheme(themeToApply)
+
+    const id = requestAnimationFrame(() => {
+      setIsDark(themeToApply === "dark")
+    })
+
+    return () => cancelAnimationFrame(id)
+  }, [])
+
   function handleTheme() {
-    const newTheme = isDark? "light" : "dark"
+    const newTheme = isDark ? "light" : "dark"
     setIsDark(!isDark)
-    document.documentElement.setAttribute("data-theme", newTheme)
+    applyTheme(newTheme)
+    writePreference(preferenceKeys.theme, newTheme)
   }
 
   return (

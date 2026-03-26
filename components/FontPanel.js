@@ -1,7 +1,14 @@
 "use client"
 import { useSession } from "next-auth/react"
 import { isMember } from "@/lib/auth"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import {
+  applyFontFamily,
+  applyFontSize,
+  preferenceKeys,
+  readPreference,
+  writePreference,
+} from "@/lib/preferences"
 
 const fonts = ["Inter", "Sans-serif", "Serif", "Monospace", "Cursive"]
 
@@ -11,18 +18,49 @@ export default function FontPanel() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [fontFamily, setFontFamily] = useState("inter")
   const [fontSize, setFontSize] = useState("16")
+  const isAllowed = isMember(session)
 
-  if (!isMember(session)) return null
+  useEffect(() => {
+    if (!isAllowed) return undefined
+
+    const savedFontFamily = readPreference(preferenceKeys.fontFamily)
+    const savedFontSize = readPreference(preferenceKeys.fontSize)
+    let familyFrame
+    let sizeFrame
+
+    if (savedFontFamily) {
+      applyFontFamily(savedFontFamily)
+      familyFrame = requestAnimationFrame(() => {
+        setFontFamily(savedFontFamily)
+      })
+    }
+
+    if (savedFontSize) {
+      applyFontSize(savedFontSize)
+      sizeFrame = requestAnimationFrame(() => {
+        setFontSize(savedFontSize)
+      })
+    }
+
+    return () => {
+      if (familyFrame) cancelAnimationFrame(familyFrame)
+      if (sizeFrame) cancelAnimationFrame(sizeFrame)
+    }
+  }, [isAllowed])
+
+  if (!isAllowed) return null
 
   function handleFontFamily(val) {
     setFontFamily(val)
-    document.documentElement.style.setProperty("--font-family", val)
+    applyFontFamily(val)
+    writePreference(preferenceKeys.fontFamily, val)
   }
 
   function handleFontSize(e) {
     const val = e.target.value
     setFontSize(val)
-    document.documentElement.style.setProperty("--font-size", val + "px")
+    applyFontSize(val)
+    writePreference(preferenceKeys.fontSize, val)
   }
 
   return (

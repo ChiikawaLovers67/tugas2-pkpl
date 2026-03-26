@@ -4,19 +4,27 @@ import Image from "next/image"
 import styles from "./Navbar.module.css"
 import FontPanel from "./FontPanel"
 import ThemeToggle from "./ThemeToggle"
+import { isMember } from "@/lib/auth"
 
 export default function Navbar() {
   const { data: session } = useSession()
+  const member = isMember(session)
 
   return (
     <nav className={styles.navbar}>
       <span className={styles.logo}>ChiikawaLovers67</span>
       <div className={styles.right}>
-        <FontPanel />
+        {member && <FontPanel />}
         {session ? (
           <>
-            <span className={styles.name}>{"Dark Mode"}</span>
-            <ThemeToggle />
+            {member ? (
+              <>
+                <span className={styles.name}>Mode Tampilan</span>
+                <ThemeToggle />
+              </>
+            ) : (
+              <span className={styles.notice}>Bukan anggota · view only</span>
+            )}
             <Image
               src={session.user.image}
               width={32}
